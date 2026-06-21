@@ -1,0 +1,27 @@
+/* Avatar – círculo com iniciais ou foto */
+.avatar__root {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: #0d1117;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  overflow: hidden;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  /* Garante que o texto fica centralizado dentro do círculo */
+  line-height: 1;
+  text-align: center;
+  user-select: none;
+}
+
+.avatar__root img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}

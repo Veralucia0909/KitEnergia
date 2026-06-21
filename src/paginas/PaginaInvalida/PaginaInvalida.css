@@ -1,0 +1,38 @@
+.pagina-invalida {
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text2);
+}
+
+.pagina-invalida__codigo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--border2);
+  line-height: 1;
+}
+
+.pagina-invalida__titulo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem;
+  color: var(--text2);
+}
+
+.pagina-invalida__btn {
+  margin-top: 12px;
+  background: var(--amber);
+  color: #0d1117;
+  border: none;
+  border-radius: var(--radius2);
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.pagina-invalida__btn:hover { background: var(--amber2); }

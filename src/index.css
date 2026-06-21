@@ -1,0 +1,68 @@
+:root {
+  --azul:        #3a4f7a;
+  --azul-escuro: #2d3d61;
+  --azul-claro:  #4e6fa3;
+  --azul-dim:    rgba(78, 111, 163, 0.15);
+
+  --amber:       #f59e0b;
+  --amber2:      #fbbf24;
+  --amber-dim:   rgba(245, 158, 11, 0.12);
+
+  --green:       #10b981;
+  --green-dim:   rgba(16, 185, 129, 0.12);
+
+  --red:         #ef4444;
+  --red-dim:     rgba(239, 68, 68, 0.12);
+
+  --bg:          #0d1117;
+  --bg2:         #161b22;
+  --bg3:         #1c2333;
+  --border:      #30363d;
+  --border2:     #3a4151;
+
+  --text:        #e6edf3;
+  --text2:       #8b949e;
+  --text3:       #484f58;
+
+  --radius:      10px;
+  --radius2:     6px;
+  --shadow:      0 4px 16px rgba(0, 0, 0, 0.5);
+
+  font-family: 'Barlow', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Body ocupa toda a altura */
+body {
+  background: var(--bg);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Root também precisa de flex para rodapé funcionar */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: 0 6px;
+  box-sizing: border-box;
+}
+
+button { cursor: pointer; font-family: inherit; }
+input, select { font-family: inherit; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

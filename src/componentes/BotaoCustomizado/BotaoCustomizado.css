@@ -1,0 +1,43 @@
+.botao-customizado__root {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  letter-spacing: 0.02em;
+}
+
+.botao-customizado__root:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.botao-customizado__primario {
+  background: var(--amber);
+  color: #0d1117;
+}
+
+.botao-customizado__primario:hover {
+  background: var(--amber2);
+}
+
+
+.botao-customizado__secundario {
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.botao-customizado__secundario:hover {
+  background: var(--azul-claro);
+}
+
+.botao-customizado__root:not(.botao-customizado__primario):not(.botao-customizado__secundario) {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+}

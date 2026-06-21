@@ -1,0 +1,148 @@
+/* Container principal dos cards */
+.cards__root {
+  padding: 0;
+}
+
+/* Grade de cards */
+.cards__grade {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 8px;
+}
+
+/* Card individual */
+.cards__item {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  animation: fadeIn 0.2s ease;
+}
+
+.cards__item:hover {
+  border-color: var(--border2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* Linha superior: kit + status */
+.cards__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cards__kit {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--amber);
+  letter-spacing: 0.03em;
+}
+
+/* Botões lado a lado com ícone + texto */
+.cards__acoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cards__btn {
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: opacity 0.15s;
+}
+
+.cards__btn:active { transform: scale(0.97); }
+.cards__btn--editar  { background: rgba(245,158,11,0.15); color: var(--amber); }
+.cards__btn--excluir { background: rgba(239,68,68,0.15);  color: var(--red); }
+.cards__btn--editar:hover  { background: rgba(245,158,11,0.25); }
+.cards__btn--excluir:hover { background: rgba(239,68,68,0.25); }
+
+/* Linha do locatário */
+.cards__locatario {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.cards__contrato {
+  font-size: 0.72rem;
+  color: var(--text2);
+  margin-bottom: 10px;
+  font-family: monospace;
+  letter-spacing: 0.04em;
+}
+
+/* Grade de métricas */
+.cards__metricas {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.cards__metrica {
+  background: var(--bg3);
+  border-radius: 8px;
+  padding: 7px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cards__metrica-label {
+  font-size: 0.58rem;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cards__metrica-valor {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.cards__metrica-valor small {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--text2);
+}
+
+.cards__metrica--valor .cards__metrica-valor {
+  color: var(--green);
+}
+
+/* Mensagem de lista vazia */
+.cards__vazio {
+  text-align: center;
+  color: var(--text2);
+  padding: 40px 20px;
+  font-size: 0.9rem;
+}
+
+/* Badge "Fatura emitida" */
+.status-badge--fatura {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}

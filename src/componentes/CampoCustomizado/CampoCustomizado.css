@@ -1,0 +1,53 @@
+.campo-customizado__root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.campo-customizado__root span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.campo-customizado__obrigatorio {
+  color: var(--red);
+  margin-left: 2px;
+}
+
+.campo-customizado__input {
+  width: 100%;
+  height: 50px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.campo-customizado__input:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.campo-customizado__input::placeholder {
+  color: var(--text3);
+}
+
+.campo-customizado__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.campo-customizado__input option {
+  background: var(--bg3);
+}
+

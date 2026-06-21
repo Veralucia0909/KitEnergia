@@ -1,0 +1,11 @@
+/* ── Layout geral da aplicação ── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* Toast customizado (dark theme via react-toastify) */
+.Toastify__toast {
+  border-left: 3px solid var(--amber) !important;
+}
