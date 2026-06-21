@@ -1,4 +1,3 @@
-     
 import "./Rodape.css";
 
 function Rodape() {

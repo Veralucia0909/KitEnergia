@@ -44,12 +44,12 @@ body {
   flex-direction: column;
 }
 
-/* Root também precisa de flex para rodapé funcionar */
+/* ✅ Root: padding-top compensa o cabeçalho fixo (3.5rem = altura do cabeçalho) */
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding: 0 6px;
+  padding: 3.5rem 6px 0;
   box-sizing: border-box;
 }
 
