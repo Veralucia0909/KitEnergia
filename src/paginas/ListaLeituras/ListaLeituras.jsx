@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdAddCircle } from "react-icons/md";
 import useLocalStorage from "../../utils/useLocalStorage";
-import { chaveLeiturasUsuario } from "../../servicos/usuarios";
+import { CHAVE_LEITURAS_GLOBAL } from "../../servicos/usuarios";
 import { useAppContext } from "../../contexto/AppContext";
 import FiltroBusca from "../../componentes/FiltroBusca/FiltroBusca";
-import Cards from "../../componentes/Cards/Cards.jsx";
+import Cards from "../../componentes/Cards/Cards";
 import Fatura from "../../componentes/Fatura/Fatura";
 import "./ListaLeituras.css";
 
@@ -18,63 +18,77 @@ function calcularStatus(consumo) {
 
 function ListaLeituras() {
   const navigate = useNavigate();
-  const { usuarioLogado } = useAppContext();
+  const { isAdmin, unidadeDoUsuario } = useAppContext();
 
-  const [leituras, setLeituras] = useLocalStorage(chaveLeiturasUsuario(usuarioLogado.id), []);
+  // ✅ Todas as leituras de todos os usuários ficam na mesma chave
+  const [leituras, setLeituras] = useLocalStorage(CHAVE_LEITURAS_GLOBAL, []);
   const [busca, setBusca]               = useState("");
   const [tarifa, setTarifa]             = useState("0.7855");
   const [historicoAberto, setHistoricoAberto] = useState(false);
   const [faturaAberta, setFaturaAberta]       = useState(null);
 
-   useEffect(() => {
+  // Migração automática: adiciona "status" em leituras antigas sem o campo
+  useEffect(() => {
     const precisaMigrar = leituras.some(l => !l.status);
     if (precisaMigrar) {
       setLeituras(prev =>
         prev.map(l => l.status ? l : { ...l, status: calcularStatus(l.consumo) })
       );
     }
-      }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ✅ Camada de segurança: inquilino só acessa registros da própria unidade.
+  // Admin acessa todos.
+  const leiturasPermitidas = useMemo(() => {
+    if (isAdmin) return leituras;
+    return leituras.filter((l) => l.unidade === unidadeDoUsuario);
+  }, [leituras, isAdmin, unidadeDoUsuario]);
 
   const aoExcluir = (id) => {
-    setLeituras(prev => prev.filter(l => l.id !== id));
+    const item = leituras.find((l) => l.id === id);
+    // Segurança extra: inquilino não pode excluir leitura de outra unidade
+    if (item && !isAdmin && item.unidade !== unidadeDoUsuario) {
+      toast.error("Você não tem permissão para excluir essa leitura.");
+      return;
+    }
+    setLeituras((prev) => prev.filter((l) => l.id !== id));
     toast.success("🗑️ Registro excluído.");
   };
 
-  const aoEditar = (reg) => navigate(`/cadastro-leitura/${reg.id}`);
+  const aoEditar = (reg) => {
+    if (!isAdmin && reg.unidade !== unidadeDoUsuario) {
+      toast.error("Você não tem permissão para editar essa leitura.");
+      return;
+    }
+    navigate(`/cadastro-leitura/${reg.id}`);
+  };
 
   const abrirFatura = (leitura) => {
-    setLeituras(prev =>
-      prev.map(l => l.id === leitura.id ? { ...l, faturaGerada: true } : l)
+    setLeituras((prev) =>
+      prev.map((l) => (l.id === leitura.id ? { ...l, faturaGerada: true } : l))
     );
     setFaturaAberta(leitura);
   };
 
+  // Busca unificada: unidade, contrato, mês, status e "fatura" (leituras com fatura emitida)
   const leiturasFiltradas = useMemo(() => {
+    let lista = leiturasPermitidas;
     const t = busca.toLowerCase().trim();
-
-    // Sem busca: mostra tudo
-    if (!t) return leituras;
-
-    // Busca especial por faturas emitidas
-    if (t === "fatura" || t === "faturas") {
-      return leituras.filter((x) => x.faturaGerada === true);
+    if (t) {
+      if (t === "fatura" || t === "faturas") {
+        lista = lista.filter((x) => x.faturaGerada);
+      } else {
+        lista = lista.filter((x) =>
+          x.unidade.toLowerCase().includes(t) ||
+          (x.codigoContrato || "").toLowerCase().includes(t) ||
+          (x.mes || "").toLowerCase().includes(t) ||
+          (x.status || "").toLowerCase().includes(t)
+        );
+      }
     }
-
-    // Busca normal: unidade, contrato, mês ou status
-    return leituras.filter((x) => {
-      const unidade  = (x.unidade || "").toLowerCase();
-      const contrato = (x.codigoContrato || "").toLowerCase();
-      const mes      = (x.mes || "").toLowerCase();
-      const status   = (x.status || "").toLowerCase();
-
-      return (
-        unidade.includes(t) ||
-        contrato.includes(t) ||
-        mes.includes(t) ||
-        status.includes(t)
-      );
-    });
-  }, [leituras, busca]);
+    return lista;
+  }, [leiturasPermitidas, busca]);
 
   const stats = useMemo(() => {
     const total        = leiturasFiltradas.length;
@@ -91,31 +105,34 @@ function ListaLeituras() {
   );
 
   const fmtKwh = (v) => Number(v).toFixed(2).replace(".", ",");
-  const fmtReais = v =>
+  const fmtReais = (v) =>
     v.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
     <div className="lista-page">
-      <h1 className="lista-page__titulo">Lista de Leituras</h1>
+      <h1 className="lista-page__titulo">
+        Lista de Leituras {isAdmin && <span style={{ fontSize: "0.7em", color: "var(--text2)" }}>(todas as unidades)</span>}
+      </h1>
 
+      {/* Busca unificada */}
       <FiltroBusca
         termo={busca}
         aoMudar={setBusca}
         placeholder="Buscar unidade, mês, status, fatura..."
       />
 
-      {/* Tarifa – mantida separada da busca */}
+      {/* Tarifa */}
       <div className="lista-page__filtros">
         <div className="ctrl-group">
           <span className="ctrl-label">Tarifa R$/kWh</span>
           <input className="ctrl-input" type="number" step="0.0001" min="0"
-            value={tarifa} onChange={e => setTarifa(e.target.value)} />
+            value={tarifa} onChange={(e) => setTarifa(e.target.value)} />
         </div>
       </div>
 
-      {/* Stats 2x2 */}
+      {/* Stats */}
       <div className="stats">
-        <div className="stat stat--clicavel" onClick={() => setHistoricoAberto(v => !v)} title="Ver histórico">
+        <div className="stat stat--clicavel" onClick={() => setHistoricoAberto((v) => !v)} title="Ver histórico">
           <div className="stat__num stat__num--white">{stats.total}</div>
           <div className="stat__label">Leituras {historicoAberto ? "▲" : "▼"}</div>
         </div>
@@ -153,7 +170,7 @@ function ListaLeituras() {
                   <tr><th>Unidade</th><th>Mês</th><th>Data</th><th>Consumo</th><th>Status</th><th>Valor</th><th>PDF</th></tr>
                 </thead>
                 <tbody>
-                  {historico.map(l => (
+                  {historico.map((l) => (
                     <tr key={l.id}>
                       <td><strong style={{ color: "var(--amber)" }}>{l.unidade}</strong></td>
                       <td><span className="badge-mes">{l.mes}</span></td>
@@ -171,7 +188,7 @@ function ListaLeituras() {
         </div>
       )}
 
-      {/* Lista de cards — sem busca interna */}
+      {/* Lista de cards */}
       <div className="lista-page__lista">
         <Cards
           leituras={leiturasFiltradas}

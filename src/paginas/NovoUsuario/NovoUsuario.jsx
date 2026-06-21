@@ -26,9 +26,11 @@ function NovoUsuario() {
     email: "",
     senha: "",
     confirmacaoSenha: "",
+    tipoConta: "inquilino", // ✅ "inquilino" ou "administrador"
     unidade: "",
   });
   const forca = forcaSenha(usuarioForm.senha);
+  const ehAdministrador = usuarioForm.tipoConta === "administrador";
 
   const salvar = () => {
     if (!usuarioForm.nome.trim() || !usuarioForm.email.trim() || !usuarioForm.senha.trim()) {
@@ -47,8 +49,9 @@ function NovoUsuario() {
       toast.error("As senhas não coincidem.");
       return;
     }
-    // ✅ Única validação de unidade — sem bloco duplicado
-    if (!usuarioForm.unidade) {
+
+    // ✅ Unidade só é obrigatória para inquilino
+    if (!ehAdministrador && !usuarioForm.unidade) {
       toast.error("Selecione sua unidade.");
       return;
     }
@@ -59,9 +62,19 @@ function NovoUsuario() {
       return;
     }
 
-    // Remove confirmacaoSenha e ofusca a senha
-    const { confirmacaoSenha, ...dadosUsuario } = usuarioForm;
-    usuarios.push({ id: crypto.randomUUID(), ...dadosUsuario, senha: btoa(usuarioForm.senha) });
+    // Remove campos auxiliares antes de salvar
+    const { confirmacaoSenha, tipoConta, ...dadosUsuario } = usuarioForm;
+
+    // ✅ Administrador é salvo SEM o campo "unidade" — isso já ativa o isAdmin no AppContext
+    const novoUsuario = ehAdministrador
+      ? { ...dadosUsuario, unidade: "" }
+      : dadosUsuario;
+
+    usuarios.push({
+      id: crypto.randomUUID(),
+      ...novoUsuario,
+      senha: btoa(usuarioForm.senha),
+    });
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
     toast.success("Usuário cadastrado com sucesso!");
     navigate("/login");
@@ -118,20 +131,35 @@ function NovoUsuario() {
         obrigatorio
       />
 
-      {/* ✅ Único campo de unidade — bloco duplicado removido */}
+      {/* ✅ Select de tipo de conta */}
       <div className="campo-customizado__root">
-        <span>Sua Unidade *</span>
+        <span>Tipo de Conta *</span>
         <select
           className="campo-customizado__input"
-          value={usuarioForm.unidade}
-          onChange={(e) => setUsuarioForm({ ...usuarioForm, unidade: e.target.value })}
+          value={usuarioForm.tipoConta}
+          onChange={(e) => setUsuarioForm({ ...usuarioForm, tipoConta: e.target.value, unidade: "" })}
         >
-          <option value="">Selecione o kit...</option>
-          {KITS.map((k) => (
-            <option key={k} value={k}>{k}</option>
-          ))}
+          <option value="inquilino">Inquilino</option>
+          <option value="administrador">Administrador</option>
         </select>
       </div>
+
+      {/* ✅ Unidade só aparece para Inquilino */}
+      {!ehAdministrador && (
+        <div className="campo-customizado__root">
+          <span>Sua Unidade *</span>
+          <select
+            className="campo-customizado__input"
+            value={usuarioForm.unidade}
+            onChange={(e) => setUsuarioForm({ ...usuarioForm, unidade: e.target.value })}
+          >
+            <option value="">Selecione o kit...</option>
+            {KITS.map((k) => (
+              <option key={k} value={k}>{k}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <BotaoCustomizado tipo="secundario" aoClicar={salvar}>
         Salvar
