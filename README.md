@@ -1,6 +1,6 @@
 # ⚡ KitEnergia  Controle de Leitura de Energia
 
-> 📱 **Progressive Web App (PWA)** desenvolvido como projeto final da 2° semestre do curso de Desenvolvimento de Sistemas (SENAI/SC).  
+> 📱 **Progressive Web App (PWA)** desenvolvido como projeto final da 2° semestre Aula de React do curso de Desenvolvimento de Sistemas (SENAI/SC).  
 > Sistema web para gestão, cálculo automatizado de consumo de energia e emissão de faturas para unidades habitacionais (kitnets).
 
 ## 💡 Sobre o Projeto
