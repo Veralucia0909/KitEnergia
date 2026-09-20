@@ -21,18 +21,18 @@
 
 Quem administra kitnets ou imóveis com várias unidades faz a mesma rotina todo mês: anda pelo prédio anotando a leitura de cada medidor num caderno, depois senta no computador, subtrai a leitura anterior, multiplica pela tarifa e digita uma fatura para cada inquilino. É demorado, e cada etapa manual é uma chance de errar um número.
 
-O **KitEnergia** transforma isso em um fluxo só. A leitura é registrada no celular ali na frente do medidor  o app já traz a medição anterior preenchida para evitar erro de digitação — e a fatura sai pronta, com o demonstrativo de consumo calculado.
+O **KitEnergia** transforma isso em um fluxo só. A leitura é registrada no celular ali na frente do medidor  o app já traz a medição anterior preenchida para evitar erro de digitação  e a fatura sai pronta, com o demonstrativo de consumo calculado.
 
 Como a medição acontece em campo, onde o sinal costuma ser ruim, o app foi construído como **PWA offline-first**: instala no celular e funciona sem conexão.
 
 ## ✨ Funcionalidades
 
-- 🔐 **Autenticação com isolamento de dados** — cada usuário acessa apenas as próprias unidades e leituras
-- 📝 **Cadastro inteligente de leituras** — puxa automaticamente a medição anterior do último registro, evitando erro de digitação
-- 📊 **Dashboard de consumo** — consumo total em kWh, tarifa aplicada (R$/kWh), valor total a cobrar e destaque da unidade de maior consumo
-- 🧾 **Emissão de fatura em PDF** — demonstrativo detalhado, linha digitável e QR Code PIX (simulado), pronto para imprimir ou enviar ao locatário
-- 🔍 **Filtro e busca** — pesquisa por unidade, mês de referência, status ou número do contrato
-- 📱 **Instalável e offline** — funciona na tela inicial do celular, com persistência local via `LocalStorage`
+- 🔐 **Autenticação com isolamento de dados** cada usuário acessa apenas as próprias unidades e leituras
+- 📝 **Cadastro inteligente de leituras** puxa automaticamente a medição anterior do último registro, evitando erro de digitação
+- 📊 **Dashboard de consumo** consumo total em kWh, tarifa aplicada (R$/kWh), valor total a cobrar e destaque da unidade de maior consumo
+- 🧾 **Emissão de fatura em PDF** demonstrativo detalhado, linha digitável e QR Code PIX (simulado), pronto para imprimir ou enviar ao locatário
+- 🔍 **Filtro e busca** pesquisa por unidade, mês de referência, status ou número do contrato
+- 📱 **Instalável e offline** funciona na tela inicial do celular, com persistência local via `LocalStorage`
 
 ## 🧰 Tecnologias
 
