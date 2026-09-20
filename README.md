@@ -21,7 +21,7 @@
 
 Quem administra kitnets ou imóveis com várias unidades faz a mesma rotina todo mês: anda pelo prédio anotando a leitura de cada medidor num caderno, depois senta no computador, subtrai a leitura anterior, multiplica pela tarifa e digita uma fatura para cada inquilino. É demorado, e cada etapa manual é uma chance de errar um número.
 
-O **KitEnergia** transforma isso em um fluxo só. A leitura é registrada no celular ali na frente do medidor — o app já traz a medição anterior preenchida para evitar erro de digitação — e a fatura sai pronta, com o demonstrativo de consumo calculado.
+O **KitEnergia** transforma isso em um fluxo só. A leitura é registrada no celular ali na frente do medidor  o app já traz a medição anterior preenchida para evitar erro de digitação — e a fatura sai pronta, com o demonstrativo de consumo calculado.
 
 Como a medição acontece em campo, onde o sinal costuma ser ruim, o app foi construído como **PWA offline-first**: instala no celular e funciona sem conexão.
 
