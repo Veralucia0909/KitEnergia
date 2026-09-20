@@ -5,18 +5,18 @@ import "./FormularioLeitura.css";
 
 // Dados fixos de cada kit: unidade, contrato e locatário
 const KITS = [
-  { unidade: "Kit 1",  contrato: "833250", locatario: "Mateus Lima" },
-  { unidade: "Kit 2",  contrato: "838422", locatario: "Marineli Fonseca" },
-  { unidade: "Kit 3",  contrato: "838482", locatario: "Clesio Apôlonio" },
-  { unidade: "Kit 4",  contrato: "840133", locatario: "João Pedro" },
-  { unidade: "Kit 5",  contrato: "841333", locatario: "Cristiano Terterola" },
-  { unidade: "Kit 6",  contrato: "835040", locatario: "Larissa Ribeiro" },
-  { unidade: "Kit 7",  contrato: "839879", locatario: "Otávio Vieira" },
-  { unidade: "Kit 8",  contrato: "840009", locatario: "Cristiano Gula" },
-  { unidade: "Kit 9",  contrato: "834790", locatario: "Osvaldo Souza" },
-  { unidade: "Kit 10", contrato: "837237", locatario: "Fernanda Menezes" },
-  { unidade: "Kit 11", contrato: "834612", locatario: "Fabricio Firmino" },
-  { unidade: "Kit 12", contrato: "840176", locatario: "Henrique Fujita" },
+ { unidade: "Kit 1",  contrato: "833252", locatario: "Marcelo Candeia" },
+  { unidade: "Kit 2",  contrato: "838422", locatario: "Maria Afonso" },
+  { unidade: "Kit 3",  contrato: "838482", locatario: "Claudio aparecido" },
+  { unidade: "Kit 4",  contrato: "840133", locatario: "João Maria" },
+  { unidade: "Kit 5",  contrato: "841333", locatario: "Cristiane Oliveira" },
+  { unidade: "Kit 6",  contrato: "835040", locatario: "Lisandro Ribeiro" },
+  { unidade: "Kit 7",  contrato: "839879", locatario: "Carlos Vieira" },
+  { unidade: "Kit 8",  contrato: "840009", locatario: "Cris Almeida" },
+  { unidade: "Kit 9",  contrato: "834790", locatario: "Graça Souza" },
+  { unidade: "Kit 10", contrato: "837237", locatario: "Francisco Menezes" },
+  { unidade: "Kit 11", contrato: "834612", locatario: "Fabio Melo" },
+  { unidade: "Kit 12", contrato: "840176", locatario: "Orlando Ferreira" },
 ];
 
 function calcularStatus(consumo) {
