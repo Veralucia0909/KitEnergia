@@ -11,7 +11,7 @@ const KITS = [
   { unidade: "Kit 4",  contrato: "840133", locatario: "João Maria" },
   { unidade: "Kit 5",  contrato: "841333", locatario: "Cristiane Oliveira" },
   { unidade: "Kit 6",  contrato: "835040", locatario: "Lisandro Ribeiro" },
-  { unidade: "Kit 7",  contrato: "839879", locatario: "Carlos Vieira" },
+  { unidade: "Kit 7",  contrato: "839879", locatario: "Carlos Vieira" },''
   { unidade: "Kit 8",  contrato: "840009", locatario: "Cris Almeida" },
   { unidade: "Kit 9",  contrato: "834790", locatario: "Graça Souza" },
   { unidade: "Kit 10", contrato: "837237", locatario: "Francisco Menezes" },
